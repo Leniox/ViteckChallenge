@@ -272,50 +272,58 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <!-- change this to be one vertical linear layouts
+    with two linear horizontal layouts inside them to spread out the area
+    a bit more-->
     <LinearLayout
         android:id="@+id/conditionsLLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
 
-            <EditText
-                android:id="@+id/conditionsInput"
-                android:layout_width="match_parent"
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:backgroundTint="@android:color/holo_red_dark"
-                android:hint="Preexisting Conditions">
+                android:layout_weight="2">
 
-            </EditText>
+                <EditText
+                    android:id="@+id/conditionsInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:hint="Preexisting Conditions">
 
-        </android.support.design.widget.TextInputLayout>
+                </EditText>
 
-        <Spinner
-            android:id="@+id/conditionsSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:entries="@array/conditions">
+            </android.support.design.widget.TextInputLayout>
 
-        </Spinner>
+            <Spinner
+                android:id="@+id/conditionsSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:entries="@array/conditions">
 
-        <ListView
-            android:id="@+id/preexistingConditionsList"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:scrollbars="vertical" />
+            </Spinner>
 
-        <ImageButton
-            android:id="@+id/submitConditionButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_finish" />
+
+
+            <ListView
+                android:id="@+id/preexistingConditionsList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:scrollbars="vertical" />
+
+            <ImageButton
+                android:id="@+id/submitConditionButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_finish" />
+
     </LinearLayout>
 
 </LinearLayout>

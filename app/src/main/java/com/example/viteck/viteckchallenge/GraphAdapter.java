@@ -1,28 +1,37 @@
 package com.example.viteck.viteckchallenge;
 
+/**
+ * Created by Greg on 2/3/18.
+ */
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.db.chart.model.Bar;
 import com.google.android.gms.maps.SupportMapFragment;
 
 /**
  * Created by Greg on 12/2/17.
  */
 
-public class PageAdapter extends FragmentStatePagerAdapter {
+public class GraphAdapter extends FragmentStatePagerAdapter {
     int numOftabs;
     CardFragment cardFrag;
-    TwitterFeed twitterFrag;
-    MapFragment mapFragment;
+    PieChart pieChart;
+    BarChart barChart;
 
-    public PageAdapter (FragmentManager fm, int numOfTabs, CardFragment cardFrag, MapFragment mapFragment)
+    public GraphAdapter (FragmentManager fm, int numOfTabs, PieChart pieChart, BarChart barChart)
     {
         super(fm);
         this.numOftabs = numOfTabs;
-        this.cardFrag = cardFrag;
-        this.mapFragment = mapFragment;
+        this.barChart = barChart;
+        this.pieChart = pieChart;
 
 
     }
@@ -31,12 +40,9 @@ public class PageAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
 
-                return mapFragment;
+                return pieChart;
             case 1:
-                return cardFrag;
-            case 2:
-                twitterFrag = new TwitterFeed();
-                return twitterFrag;
+                return barChart;
             default:
                 return null;
         }

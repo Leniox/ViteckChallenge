@@ -38,7 +38,7 @@ public class sendRequestToML extends AsyncTask<String, Void, String> {
         HttpURLConnection urlConnection = null;
         URL url;
         try {
-            url = new URL("http://34.201.132.170:5000/get_score");
+            url = new URL("http://54.174.183.245:5000/get_score");
             urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.setRequestMethod("POST");
@@ -68,7 +68,7 @@ public class sendRequestToML extends AsyncTask<String, Void, String> {
                 Log.e("HTTP Error", urlConnection.getResponseCode() + urlConnection.getResponseMessage());
             }
         }catch(Exception e){
-            e.printStackTrace();
+            Log.e("Request Error", e.getMessage());
         }
         return result;
     }

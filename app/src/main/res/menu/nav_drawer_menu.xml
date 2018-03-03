@@ -11,6 +11,10 @@
             android:id="@+id/nav_logout"
             android:icon="@drawable/power"
             android:title="Log out" />
+        <item
+            android:id="@+id/twilio"
+            android:icon="@drawable/if_sms_2639922"
+            android:title="Pink a Pharmacist" />
     </group>
 
 </menu>

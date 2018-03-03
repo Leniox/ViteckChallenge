@@ -59,7 +59,12 @@ dependencies {
     compile 'com.diogobernardino:williamchart:2.5.0'
     compile 'com.github.bmarrdev:android-DecoView-charting:v1.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
+    compile 'com.github.arimorty:floatingsearchview:2.1.1'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+    compile 'com.jpardogo.googleprogressbar:library:(latest version)'
+    'com.ibm.watson.developer_cloud:natural-language-understanding:4.2.1'
+    compile 'com.ibm.watson.developer_cloud:java-sdk:4.1.0'
     compile 'com.github.amirdew:JSON:v1.0.0'
 
 

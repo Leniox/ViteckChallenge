@@ -97,6 +97,8 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
         mDatabase = database.getReference();
+        //if we're coming from the main activity, it means we've already signed in before and so we can
+        //get the snapshots from the database and pre-fill the data to be updated or changed.
         if ((i.getExtras()!=null) && (i.getExtras().get("fromMain").equals("true"))) {
             fromMain = true;
 
@@ -154,21 +156,7 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
         }
         else
         {
-            String[] mySteps = {"State", "City", "Age", "Sex", "Height (in)", "Weight (lbs)", "Annual Income", "Employment", "Maritial Status", "Smoker", "Optional Insured", "People Covered", "Preconditions"};
-            int colorPrimary = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-            int colorPrimaryDark = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
-
-            LayoutInflater inflater = LayoutInflater.from(getBaseContext());
-            parentLayout = (LinearLayout) inflater.inflate(R.layout.views, null, false);
-
-            verticalStepperForm = findViewById(R.id.vertical_stepper_form);
-
-            // Setting up and initializing the form
-            VerticalStepperFormLayout.Builder.newInstance(verticalStepperForm, mySteps, this, this)
-                    .primaryColor(colorPrimary)
-                    .primaryDarkColor(colorPrimaryDark)
-                    .displayBottomNavigation(false) // Defaults to true
-                    .init();
+           verticalStepper();
         }
 
 
@@ -393,8 +381,7 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
     }
 
     @Override
-    public void handleMlResponse(String s) {
-        Intent i = new Intent(this, MainActivity.class);
+    public void handleMlResponse(String s) {Intent i = new Intent(this, MainActivity.class);
         i.putExtra("MLResponse", s);
         try
         {
@@ -441,6 +428,7 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
     }
 
     private View createCityStep() {
+        //THIS IS WRONG, FILL WITH CITIES NOT STATE A
         if (fromMain)
         {
             city = parentLayout.findViewById(R.id.personCity);
@@ -776,7 +764,7 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
                 if (!conditionsText.equals("")) {
                     conditionsList.add(conditionsText);
                     ((ArrayAdapter) priorConditions.getAdapter()).notifyDataSetChanged();
-
+                    conditionsInput.setText("");
                     String selectedSpinner = (String) conditionsSpinner.getSelectedItem();
                     if (selectedSpinner.equals("Low")) {
                         lowConditions++;
@@ -830,7 +818,7 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
         if (!income.getText().toString().equals("$")) {
             verticalStepperForm.setStepAsCompleted(6);
         } else {
-            verticalStepperForm.setStepAsUncompleted(6, "Must Enter An Weight");
+            verticalStepperForm.setStepAsUncompleted(6, "Must Enter An Income");
         }
     }
 
@@ -838,7 +826,7 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
         if (employment.getCheckedRadioButtonId() != -1) {
             verticalStepperForm.setStepAsCompleted(7);
         } else {
-            verticalStepperForm.setStepAsUncompleted(7, "Must Select A Value");
+            verticalStepperForm.setStepAsUncompleted(7, "Must Select An Employment Status");
         }
     }
 
@@ -846,7 +834,7 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
         if (maritialStatus.getCheckedRadioButtonId() != -1) {
             verticalStepperForm.setStepAsCompleted(8);
         } else {
-            verticalStepperForm.setStepAsUncompleted(8, "Must Select A Value");
+            verticalStepperForm.setStepAsUncompleted(8, "Must Select A Marital Status");
         }
     }
 

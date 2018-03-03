@@ -30,6 +30,6 @@
         android:textColor="#454545"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:text="Coded with love for Vitech" />
+        android:text="Coded with love for PittHacks" />
 
 </RelativeLayout>

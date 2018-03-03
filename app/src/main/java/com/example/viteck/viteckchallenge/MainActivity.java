@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private DrawerLayout di;
     private JSONObject MLResponse = null;
     private CardFragment cardFrag;
+    private TwitterFeed twitterFrag;
 
     Bundle bundle;
 
@@ -81,8 +83,23 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         }
 
         mAuth = FirebaseAuth.getInstance();
+        //PRESENT A NEW ACTIVITY HERE THAT SAYS AN ERROR OCCURED DURING SING UP
+
+        di = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("");
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        //this is if we come after the user questions
         Intent i = getIntent();
         cardFrag = new CardFragment();
         if(i.hasExtra("MLResponse")){
@@ -110,15 +127,27 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
                 tabLayout.addTab(tabLayout.newTab().setText("Map View"));
                 tabLayout.addTab(tabLayout.newTab().setText("Recommended Plans"));
+                tabLayout.addTab(tabLayout.newTab().setText("Twitter-care"));
                 tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
                 viewPager = (ViewPager) findViewById(R.id.pager);
+                MapFragment mapFragment = new MapFragment();
+
+
+                viewPager.setOffscreenPageLimit(3);
+
                 final PageAdapter adapter = new PageAdapter
-                        (getSupportFragmentManager(), tabLayout.getTabCount(), cardFrag);
+                        (getSupportFragmentManager(), tabLayout.getTabCount(), cardFrag, mapFragment);
                 viewPager.setAdapter(adapter);
+
                 tabLayout.setOnTabSelectedListener(this);
 
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+                //if this is first time signging up with us, go back to Login activity for loading data
+                Intent in = new Intent(this, LoginActivity.class);
+                startActivity(in);
+                finish();
 
 
             }catch(JSONException e){
@@ -143,6 +172,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             FirebaseDatabase.getInstance().getReference().child("User").child(thisUser).child("predicted").child("Platinum").setValue(platinumPrem);
             FirebaseDatabase.getInstance().getReference().child("User").child(thisUser).child("predicted").child("Class").setValue(cls);
                      */
+
+
+                    //IF EXCEPTION OCCURS HERE IT MEANS THAT SIGN UP FAILED DURING ML RESPONSE AND SO WE SIGNED UP WITH
+                    //AUTH BUT WE WEREN'T ABLE TO PUT ANY OF THESE VALUES BECASE ML FAILED
                     double bronze_val = (double) dataSnapshot.child("Bronze").getValue();
                     double silver_val = (double) dataSnapshot.child("Silver").getValue();
                     double gold_val = (double) dataSnapshot.child("Gold").getValue();
@@ -163,15 +196,23 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
                     tabLayout.addTab(tabLayout.newTab().setText("Map View"));
                     tabLayout.addTab(tabLayout.newTab().setText("Recommended Plans"));
+                    tabLayout.addTab(tabLayout.newTab().setText("Twitter-care"));
+
                     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
                     viewPager = (ViewPager) findViewById(R.id.pager);
+                    //ASK WHY IT CRASHES WHEN I REMOVE OR. OR RATHER, HOW DO I FIX IT?
+                    MapFragment mapFragment = new MapFragment();
+                    viewPager.setOffscreenPageLimit(3);
+
                     final PageAdapter adapter = new PageAdapter
-                            (getSupportFragmentManager(), tabLayout.getTabCount(), cardFrag);
+                            (getSupportFragmentManager(), tabLayout.getTabCount(), cardFrag, mapFragment);
                     viewPager.setAdapter(adapter);
                     tabLayout.setOnTabSelectedListener(MainActivity.this);
                     viewPager.setCurrentItem(0);
                     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
                 }
 
                 @Override
@@ -181,20 +222,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         }
 
-        di = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setTitle("");
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -225,10 +253,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             snackbar.show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+        else {
+
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
+
     }
 
 

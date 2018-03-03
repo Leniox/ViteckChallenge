@@ -91,6 +91,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener, A
     //defining FireBase real-time database object
     public DatabaseReference mDatabase1;
 
+    //This class: Sets up the first SignUp Scene that loads all of the text views. After you click sign up,
+    //we go to the on click method. It verifies all the data is correct and signs up with Firebase and then uses the scene
+    //manager to transition to the sceneLogging. Once at sceneLogging, we show the animation, and then go to the last scene
+    //which transitions to the user questions
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,6 +192,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener, A
 
             }
         });
+
+
+
+
+
         TransitionManager.go(mSceneSignUp);
 
 
@@ -376,32 +385,36 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener, A
                             if(task.isSuccessful()){
                                 //display some message here
                                 Toast.makeText(SignUp.this, R.string.reg_success, Toast.LENGTH_LONG).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            profileSetup();
+                                        }
+                                        catch (Exception e) {
+                                            Toast.makeText(SignUp.this,"",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }, 2500);
+
+
+
+                                TransitionManager.go(mSceneLogging, new ChangeBounds().setDuration(mDuration).setInterpolator(new DecelerateInterpolator()));
                             }else{
                                 //display some message here
                                 /*Snackbar snackbar = Snackbar
                                         .make(li, R.string.reg_fail, Snackbar.LENGTH_LONG);
                                 snackbar.show();*/
                                 Toast.makeText(SignUp.this, "User already exists! Please go log in.", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(SignUp.this, LoginActivity.class);
+                                startActivity(i);
+
                             }
                         }
                     });
 
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        profileSetup();
-                    }
-                    catch (Exception e) {
-                        Toast.makeText(SignUp.this,"",Toast.LENGTH_LONG).show();
-                    }
-                }
-            }, 4500);
 
-
-
-            TransitionManager.go(mSceneLogging, new ChangeBounds().setDuration(mDuration).setInterpolator(new DecelerateInterpolator()));
         }
     }
 

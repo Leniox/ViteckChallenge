@@ -20,20 +20,20 @@ public class MainIntroActivity extends MaterialIntroActivity {
                         .backgroundColor(R.color.first_slide_background)
                         .buttonsColor(R.color.first_slide_buttons)
                         //.image(R.drawable.img_office)
-                        .title("Organize your time with us")
+                        .title("Localized Healthcare: Visualized.")
                         .description("Would you try?")
                         .build(),
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
+                        showMessage("We provide an all-in-one platform.");
                     }
-                }, "Work with love"));
+                }, "Engage with your care."));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.second_slide_background)
                 .buttonsColor(R.color.second_slide_buttons)
-                .title("Want more?")
+                .title("Want more? Twitter + Machine Learning + Watson Sentiment Analysis.")
                 .description("Go on")
                 .build());
 
@@ -73,7 +73,7 @@ public class MainIntroActivity extends MaterialIntroActivity {
                         Intent intent1 = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent1);
                     }
-                }, "Work with love"));
+                }, "Let's get started."));
     }
 
     @Override
@@ -81,6 +81,6 @@ public class MainIntroActivity extends MaterialIntroActivity {
         super.onFinish();
         Intent intent1 = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent1);
-        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
+
     }
 }
