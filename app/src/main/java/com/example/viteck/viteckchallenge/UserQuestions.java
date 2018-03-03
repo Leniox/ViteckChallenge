@@ -381,7 +381,8 @@ public class UserQuestions extends Activity implements VerticalStepperForm, mlRe
     }
 
     @Override
-    public void handleMlResponse(String s) {Intent i = new Intent(this, MainActivity.class);
+    public void handleMlResponse(String s) {
+        Intent i = new Intent(this, MainActivity.class);
         i.putExtra("MLResponse", s);
         try
         {

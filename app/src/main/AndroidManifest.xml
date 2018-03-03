@@ -57,7 +57,8 @@
         </activity>
         <activity android:name=".PasswordResetActivity" />
         <activity android:name=".SignUp" />
-        <activity android:name=".graphActivity"></activity>
+        <activity android:name=".graphActivity" />
+        <activity android:name=".splashActivity"></activity>
     </application>
 
 </manifest>

@@ -135,48 +135,55 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if(firebaseAuth.getCurrentUser() != null) {
-                    //User has logged-in already
-                    //Move user directly to the Account Activity.
-                    setContentView(R.layout.activity_splash);
-                    mLVBlock = (LVBlock) findViewById(R.id.lv_block);
-
-                    mLVBlock.setViewColor(Color.rgb(245,209,22));
-                    mLVBlock.setShadowColor(Color.GRAY);
-                    mLVBlock.startAnim(1000);
-
-                    final HashMap<LatLng, Gradient> [] someArray = new HashMap[1];
-                    Thread pleaseWork = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                             location = getLastKnownLocation();
-                            //uncomment this and change the onMapReady function when showtime
-                            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                            List<Address> addresses = null;
-                            try {
-                                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            String stateName = addresses.get(0).getAdminArea();
-                            HashMap<LatLng, Gradient> myMap = processMapLatLng(50, stateName);
-                            someArray[0] = myMap;
-
-
-
-                        }
-                    });
-                    pleaseWork.start();
-                    try {
-                        pleaseWork.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    dataRelay.theMap = someArray[0];
-                    dataRelay.someLocation = location;
-                    mLVBlock.stopAnim();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, splashActivity.class);
                     startActivity(intent);
                     finish();
+//                    //User has logged-in already
+//                    //Move user directly to the Account Activity.
+//                    setContentView(R.layout.activity_splash);
+//                    mLVBlock = (LVBlock) findViewById(R.id.lv_block);
+//
+//                    mLVBlock.setViewColor(Color.rgb(245,209,22));
+//                    mLVBlock.setShadowColor(Color.GRAY);
+//                    mLVBlock.startAnim(1000);
+//                    View splashView =  View.inflate(getApplicationContext(),R.layout.fragment_twitter_feed, );
+//
+//
+//
+//
+//                    final HashMap<LatLng, Gradient> [] someArray = new HashMap[1];
+//                    Thread pleaseWork = new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                             location = getLastKnownLocation();
+//                            //uncomment this and change the onMapReady function when showtime
+//                            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+//                            List<Address> addresses = null;
+//                            try {
+//                                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                            String stateName = addresses.get(0).getAdminArea();
+//                            HashMap<LatLng, Gradient> myMap = processMapLatLng(50, stateName);
+//                            someArray[0] = myMap;
+//
+//
+//
+//                        }
+//                    });
+//                    pleaseWork.start();
+//                    try {
+//                        pleaseWork.join();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    dataRelay.theMap = someArray[0];
+//                    dataRelay.someLocation = location;
+//                    mLVBlock.stopAnim();
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    finish();
 
 
 
