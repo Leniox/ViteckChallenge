@@ -38,7 +38,7 @@ public class sendRequestToML extends AsyncTask<String, Void, String> {
         HttpURLConnection urlConnection = null;
         URL url;
         try {
-            url = new URL("http://54.174.183.245:5000/get_score");
+            url = new URL("http://52.87.237.215:5000/get_score");
             urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.setRequestMethod("POST");

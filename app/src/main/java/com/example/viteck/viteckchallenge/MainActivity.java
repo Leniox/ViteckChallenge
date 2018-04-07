@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
                 //if this is first time signging up with us, go back to Login activity for loading data
-                Intent in = new Intent(this, LoginActivity.class);
+                Intent in = new Intent(this, splashActivity.class);
                 startActivity(in);
                 finish();
 

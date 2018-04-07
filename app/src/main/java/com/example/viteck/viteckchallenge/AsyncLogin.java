@@ -138,7 +138,7 @@ public class AsyncLogin  extends AsyncTask<String, Integer, HashMap<LatLng, Grad
 
                     RequestBody body = RequestBody.create(JSON, jq.toString());
                     Request request = new Request.Builder()
-                            .url("http://54.174.183.245:5000/get_city")
+                            .url("http://52.87.237.215:5000/get_city")
                             .post(body)
                             .build();
                     try {

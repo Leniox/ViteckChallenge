@@ -146,89 +146,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PlaceSe
 
 
 
-
-
-
-
-
-//        location = getLastKnownLocation();
-//        //uncomment this and change the onMapReady function when showtime
-//        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-//        List<Address> addresses = null;
-//        try {
-//            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        final String [] jsonStringarr = new String[1];
-//        stateName = addresses.get(0).getAdminArea();
-//        processMapLatLng(50, stateName);
-//        Thread thread1 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                processMapLatLng(25, stateName);
-//            }
-//        });
-//        thread1.start();
-//        Thread thread2 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                processMapLatLng(50, stateName);
-//
-//            }
-//        });
-//        thread2.start();
-//        try
-//        {
-//            thread1.join();
-//            thread2.join();
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
-//        System.out.println(locationMap);
-
-
-        //this below didn't work out as well as I thought because much of the cities are not recognized in the data.
-
-
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                 jsonStringarr[0] = getNearestXCities(30);
-//            }
-//        });
-//        ArrayList<String> nearByCities = new ArrayList<>();
-//        thread.start();
-//        try {
-//            thread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(jsonStringarr[0]);
-//        try {
-//            JSONObject Jobject = new JSONObject(jsonStringarr[0]);
-//            JSONArray Jarray = Jobject.getJSONArray("geonames");
-//            for (int i = 0; i < Jarray.length(); i++)
-//            {
-//                JSONObject someObj = Jarray.getJSONObject(i);
-//                String cityName = someObj.getString("name");
-//                nearByCities.add(cityName);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
-
-
-//        for (String city : nearByCities)
-//        {
-//            theMap = processMapLatLng(city, stateName);
-//
-//        }
         return mview;
 
     }
@@ -401,7 +318,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, PlaceSe
 
                     RequestBody body = RequestBody.create(JSON, jq.toString());
                     Request request = new Request.Builder()
-                            .url("http://54.174.183.245:5000/get_city")
+                            .url("http://52.87.237.215:5000/get_city")
                             .post(body)
                             .build();
                     try {
